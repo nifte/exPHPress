@@ -78,7 +78,7 @@ $app->get('/', function() {
 
 ### Accessing request parameters
 ```php
-$app->get('/greeting/:name', function($req) {
+$app->get('/greet/:name', function($req) {
     $name = $req['name'];
     echo "Hello $name!";
 });
