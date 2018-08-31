@@ -2,7 +2,7 @@
 A lightweight express-like router for PHP with minimal setup required
 
 [![GitHub](https://img.shields.io/github/license/nifte/exPHPress.svg)](https://github.com/nifte/exPHPress/blob/master/LICENSE)
-[![PHP](https://img.shields.io/badge/PHP-%5E5.6-blue.svg)](https://php.net/downloads.php)
+[![PHP](https://img.shields.io/badge/PHP-%5E5.4.4-blue.svg)](https://php.net/downloads.php)
 
 ## Features
 - Lightweight - only 1 file to include
@@ -17,16 +17,20 @@ require_once 'exPHPress.php';
 $app = new exPHPress;
 
 $app->get('/', function($req, $res) {
-	$res->sendFile('home.php');
+    $res->sendFile('home.php');
 });
 
 $app->get('/profile/:id', function($req, $res) {
-	$res->sendFile('profile.php', ['user_id' => $req['id']]);
+    $res->sendFile('profile.php', [
+        'user_id' => $req['id']
+    ]);
 });
 
 $app->get('/api/users/:id', function($req, $res) {
-	$res->setHeader('Content-Type', 'application/json');
-	$res->json(['user_id' => $req['id']]);
+    $res->setHeader('Content-Type', 'application/json');
+    $res->json([
+        'user_id' => $req['id']
+    ]);
 });
 ```
 
@@ -35,8 +39,8 @@ $app->get('/api/users/:id', function($req, $res) {
 Add the following to your `httpd.conf` file:
 ```xml
 <Directory "/var/www/html">
-	AllowOverride All
-	Require all granted
+    AllowOverride All
+    Require all granted
 </Directory>
 ```
 Change the directory name to the directory where your app will live
@@ -64,31 +68,22 @@ And that's it!
 ### Simple routing
 ```php
 $app->get('/', function() {
-	echo 'Hello world!';
+    echo 'Hello world!';
 });
 ```
 - `$app->get()` defines a route using the http GET request method
-	- You can also use `put()`, `post()`, or `delete()`
-- `'/'` is the URL/pattern to be tested against the requested URI
-- `function()` is the function that is called if the requested URI matches `'/'`
-
-### Redirecting a route
-```php
-$app->get('/profile', function($req, $res) {
-	$res->redirect('/profile/nifte');
-});
-```
-- `$res->redirect()` is the response function for redirecting one route to another
-	- The redirected route will keep the same http request method
+	- You can also use `put()`, `post()`, `patch()`, `delete()`, or `any()`
+- `'/'` is the URL/pattern to be tested against the requested route
+- `function()` is the function to be called if the requested route matches `'/'`
 
 ### Accessing request parameters
 ```php
 $app->get('/greeting/:name', function($req) {
-	$name = $req['name'];
-	echo "Hello $name!";
+    $name = $req['name'];
+    echo "Hello $name!";
 });
 ```
-- `:name` is a parameter we want to retrieve from the requested URI
+- `:name` is a parameter we want to retrieve from the requested route
 	- Request parameters are defined by prepending them with a colon (`:`)
 - `$req` is an associative array containing the request parameters and their values
 	- The value of a request parameter can be accessed by referencing it in `$req`, such as `$req['name']`
@@ -96,22 +91,23 @@ $app->get('/greeting/:name', function($req) {
 ### Sending a file
 ```php
 $app->get('/profile', function($req, $res) {
-	$res->sendFile('profile.php');
+    $res->sendFile('profile.php');
 });
 ```
 - `$res` is the response object, containing some useful built-in functions
 - `$res->sendFile()` is the response function for sending a file to the client
+	- Accepts either a PHP or HTML file
 
 ### Passing variables to a file
 ```php
 $app->get('/profile/:id', function($req, $res) {
-	$res->sendFile('profile.php', [
-		'user_id' => $req['id']
-	]);
+    $res->sendFile('profile.php', [
+        'user_id' => $req['id']
+    ]);
 });
 ```
 - `$res->sendFile()` accepts an optional second parameter - an associative array of variables to be extracted to the file being sent
-	- In `profile.php`, the variable `$user_id` would be equal to the request parameter `:id`
+	- In `profile.php`, the variable `$user_id` would be equal to the request parameter `:id`, because it is passed via `$req['id']`
 
 ### Setting a static directory
 ```php
@@ -123,18 +119,18 @@ $app->static('public/views');
 ### Sending JSON data
 ```php
 $app->get('/api/users/:id', function($req, $res) {
-	$res->json([
-		'user_id' => $req['id']
-	]);
+    $res->json([
+        'user_id' => $req['id']
+    ]);
 });
 ```
 - `$res->json()` is the response function for sending json data to the client
-	- Acceptable inputs are associative arrays and valid json strings
+	- Accepts either an associative array or a valid json string
 
-### Sending an HTTP status
+### Sending an HTTP status code
 ```php
 $app->get('/', function($req, $res) {
-	$res->sendStatus(201);
+    $res->sendStatus(201);
 });
 ```
 - `$res->sendStatus()` is the response function for sending an http status code
@@ -143,18 +139,27 @@ $app->get('/', function($req, $res) {
 ### Setting HTTP headers
 ```php
 $app->get('/', function($req, $res) {
-	$res->setHeader('Content-Type', 'application/json');
+    $res->setHeader('Content-Type', 'application/json');
 });
 ```
 - `$res->setHeader()` is the response function for setting http headers
-	- Acceptable inputs are a single key and value, or an associative array of multiple keys and values
+	- Accepts either `(key, value)`, or an associative array of multiple keys and values
+	
+### Redirecting a route
+```php
+$app->get('/profile', function($req, $res) {
+    $res->redirect('/profile/nifte');
+});
+```
+- `$res->redirect()` is the response function for redirecting one route to another
+	- The redirected route will keep the same http request method
 
 ### Handling invalid routes
 ```php
-$app->invalid(function($req, $res) {
-	$res->sendStatus(404);
-	$res->sendFile('404.php');
+$app->error(function($req, $res) {
+    $res->sendStatus(404);
+    $res->sendFile('404.php');
 });
 ```
-- `$app->invalid()` defines the function to be run when the requested URI does not match any of the defined routes
-	- If the `$app->invalid()` function is not defined, invalid routes will simply return `http 404` with the message 'Page not found.'
+- `$app->error()` defines the function to be run when the requested route does not match any defined routes
+	- If the `$app->error()` function is not defined, invalid routes will simply return `http 404` with the message 'Page not found.'
