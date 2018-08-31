@@ -118,9 +118,10 @@ $app->static('public/views');
 
 ### Sending JSON data
 ```php
-$app->get('/api/users/:id', function($req, $res) {
+$app->get('/api/users/123', function($req, $res) {
     $res->json([
-        'user_id' => $req['id']
+        'name' => 'John',
+        'age' => 35
     ]);
 });
 ```
