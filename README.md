@@ -144,7 +144,7 @@ $app->get('/', function($req, $res) {
 });
 ```
 - `$res->setHeader()` is the response function for setting http headers
-	- Accepts either `(key, value)`, or an associative array of multiple keys and values
+	- Accepts either `(key, value)` or an associative array of multiple keys and values
 	
 ### Redirecting a route
 ```php
