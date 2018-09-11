@@ -2,7 +2,7 @@
 A lightweight express-like router for PHP with minimal setup required
 
 [![GitHub](https://img.shields.io/github/license/nifte/exPHPress.svg)](https://github.com/nifte/exPHPress/blob/master/LICENSE)
-[![PHP](https://img.shields.io/badge/PHP-%5E5.4.4-blue.svg)](https://php.net/downloads.php)
+[![PHP](https://img.shields.io/badge/PHP-%5E5.6-blue.svg)](https://php.net/downloads.php)
 
 ## Features
 - Lightweight - only 1 file to include
