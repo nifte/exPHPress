@@ -80,10 +80,11 @@
 		public function sendStatus($status) {
 			http_response_code($status);
 		}
-		public function json($json) {
+		public function json($json, $status = null) {
 			if (is_array($json)) echo json_encode($json);
 			else if (is_string($json) && json_decode($json)) echo $json;
-			else echo 'Invalid json format.';
+			else echo json_encode(['Error' => 'Invalid JSON format']);
+			if ($status) http_response_code($status);
 		}
 		public function setHeader() {
 			$args = func_get_args();
