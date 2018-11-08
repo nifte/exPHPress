@@ -122,11 +122,12 @@ $app->get('/api/users/123', function($req, $res) {
     $res->json([
         'name' => 'John',
         'age' => 35
-    ]);
+    ], 200);
 });
 ```
 - `$res->json()` is the response function for sending json data to the client
-	- Accepts either an associative array or a valid json string
+	- Accepts either a PHP associative array or a valid json string
+- `200` is an optional second parameter for sending an HTTP status code along with the json data
 
 ### Sending an HTTP status code
 ```php
