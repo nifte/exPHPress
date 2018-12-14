@@ -127,6 +127,7 @@ $app->get('/api/users/123', function($req, $res) {
 ```
 - `$res->json()` is the response function for sending json data to the client
 	- Accepts either an associative array or a valid json string
+	- Accepts an HTTP status code to respond with as an optional second parameter
 
 ### Sending an HTTP status code
 ```php
