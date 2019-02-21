@@ -75,7 +75,7 @@ class Response {
 	public $static_dir = '';
 	public function sendFile($file, $vars = null) {
 		if (is_array($vars)) extract($vars);
-		if (strpos($file, '/') == 0 || strpos($file, './') == 0) include $file;
+		if (strpos($file, '/') === 0 || strpos($file, './') === 0 || strpos($file, '../') === 0) include $file;
 		else include $this->static_dir . $file;
 	}
 	public function sendStatus($status) {
