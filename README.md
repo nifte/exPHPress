@@ -114,7 +114,7 @@ $app->get('/profile/:id', function($req, $res) {
 $app->static('public/views');
 ```
 - `$app->static()` defines a default directory for `$res->sendFile()` to send files from
-	- File paths starting with `/` or `./` will ignore the static directory
+	- File paths starting with `/`, `./`, or `../` will ignore the static directory
 - `public/views` is the new directory in which `$res->sendFile()` will look for files
 
 ### Sending JSON data
