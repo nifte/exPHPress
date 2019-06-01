@@ -5,9 +5,9 @@ A lightweight express-like router for PHP with minimal setup required
 [![PHP](https://img.shields.io/badge/PHP-5.6%5E-blue.svg)](https://php.net/downloads.php)
 
 ## Features
-- Lightweight - only 1 file to include
-- No dependencies - 100% pure PHP
-- Works on both Apache and NGINX
+- Static and dynamic routing with redirect support
+- Send files, json data, or PHP output
+- Set HTTP headers & status codes
 
 ## Example
 ```php
