@@ -27,7 +27,7 @@ $app->get('/profile/:id', function($req, $res) {
 });
 
 $app->get('/api/users/:id', function($req, $res) {
-    $res->setHeader('Content-Type', 'application/json');
+    $user = getUser($req['id']);
     $res->json([
         'user_id' => $req['id']
     ]);
@@ -45,13 +45,15 @@ Add the following to your `httpd.conf` file:
 ```
 Change the directory name to the directory where your app will live
 
-Then add the following `.htaccess` file to your app directory:
+**Note:** Be sure to restart the server afterwards
+
+Then add the following `.htaccess` file to your app's directory:
 ```
 RewriteEngine On
 RewriteCond %{REQUEST_URI} !\.(js|css|png|jpg|jpeg|gif|svg)$
 RewriteRule ^ app.php [L,QSA]
 ```
-**Note:** Be sure to restart the server afterwards
+This will forward all non-resource requests to app.php
 
 ### Setting up your app
 1. Create an `app.php` file in your app directory
