@@ -34,15 +34,13 @@ $app->get('/api/users/:id', function($req, $res) {
 
 ## Getting Started
 ### Preparing the server (Apache)
-Add the following to your `httpd.conf` file:
+Add the following settings to the document root block in your `httpd.conf` file:
 ```xml
 <Directory "/var/www/html">
     AllowOverride All
     Require all granted
 </Directory>
 ```
-Change the directory name to the directory where your app will live
-
 **Note:** Be sure to restart the server afterwards
 
 Then add the following `.htaccess` file to your app's directory:
