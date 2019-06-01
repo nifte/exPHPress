@@ -28,9 +28,7 @@ $app->get('/profile/:id', function($req, $res) {
 
 $app->get('/api/users/:id', function($req, $res) {
     $user = getUser($req['id']);
-    $res->json([
-        'user_id' => $req['id']
-    ]);
+    $res->json($user);
 });
 ```
 
