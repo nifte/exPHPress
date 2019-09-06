@@ -6,7 +6,7 @@ A lightweight express-like router for PHP with minimal setup required
 
 ## Features
 - Static and dynamic routing with redirect support
-- Send files, json data, or PHP output
+- Send files, json data, or HTML output
 - Set HTTP headers & status codes
 
 ## Example
